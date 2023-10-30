@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two Eye Balls Cursor</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-image:linear-gradient(skyblue,pink);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .eye-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 600px;
+        }
+        
+        .eye {
+            width: 250px;
+            height: 150px;
+            background-color: white;
+            border-radius: 50%;
+            position: relative;
+            margin-right: 25px;
+        }
+        
+        .eye {
+            width: 250px;
+            height: 150px;
+            background-color: white;
+            border-radius: 50%;
+            position: relative;
+            margin-left: 25px;
+        }
+        
+        .eyeball {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            position: absolute;
+            top: 30%;
+            left: 30%;
+            transform: translate(-550%, -550%);
+            background-image: linear-gradient(rgb(247, 56, 167),rgb(69, 221, 38),rgb(58, 2, 71));
+        }
+    </style>
+</head>
+
+<body>
+    <div class="eye-container">
+        <div class="eye">
+            <div class="eyeball"></div>
+        </div>
+        <div class="eye">
+            <div class="eyeball"></div>
+        </div>
+    </div>
+    <script>
+        const eyes = document.querySelectorAll('.eye');
+
+        document.addEventListener('mousemove', (e) => {
+            eyes.forEach((eye) => {
+                const eyeRect = eye.getBoundingClientRect();
+                const eyeCenterX = eyeRect.left + eyeRect.width / 2;
+                const eyeCenterY = eyeRect.top + eyeRect.height / 2;
+                const angle = Math.atan2(e.clientY - eyeCenterY, e.clientX - eyeCenterX);
+                const distance = Math.min(eyeRect.width / 4, eyeRect.height / 4);
+
+                const eyeballX = distance * Math.cos(angle);
+                const eyeballY = distance * Math.sin(angle);
+
+                const eyeball = eye.querySelector('.eyeball');
+                eyeball.style.transform = `translate(${eyeballX}px, ${eyeballY}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
