@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>activity9.1</title>
+</head>
+<body>
+    
+        <div id="output">
+        
+    </div>
+    <script>
+      
+    var linearsearchiteration = 0;
+    var binarysearchiterations=0;
+    var arr = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
+     "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+    function linearSearch(x) {
+        for (let i=0;i<arr.length;i++) {
+            linearsearchiteration++;
+            if (arr[i]==x) {
+                return true;
+            } 
+                }
+        return -1;
+    }
+    
+    
+function recursiveBinarySearch(arr, x, start, end) {
+    binarysearchiterations++;
+    let mid=Math.floor((start + end) / 2);
+    if (start>end) {
+        return -1;
+    }
+    if (arr[mid] ==x) {
+        return true;
+    }
+    if (x >arr[mid]) {
+        return recursiveBinarySearch(arr,x,mid + 1,end);
+    } else {
+        return recursiveBinarySearch(arr,x,start,mid- 1);
+    }
+    return -1;
+}
+
+    function searchForAlphabeticalIndex(booktitle){
+    var str=booktitle[0]
+    var result=str.toLowerCase()
+    linearsearchiteration=0;
+    binarysearchiterations=0;
+
+    var result1= linearSearch(result);
+    var result2=recursiveBinarySearch(arr,result,0,arr.length-1);
+    var linearResultElement = document.getElementById("linearResult");
+            var binaryResultElement = document.getElementById("binaryResult");
+    
+            var resultElement = document.createElement("p");
+            resultElement.style.fontSize=30+'px';
+            
+            if (result1===true) {
+                resultElement.textContent= "Title: '" + booktitle + "'----> Linear Search Iteration: " +linearsearchiteration;
+            } else {
+                resultElement.textContent= "Title: '" + booktitle + "'----> Linear Search Iteration: " +result1;
+            }
+
+            if (result2===true) {
+                resultElement.textContent+= ", Binary Search Iteration: "+binarysearchiterations;
+            } else {
+                resultElement.textContent+= ", Binary Search Iteration: "+result2;
+            }
+            document.getElementById("output").appendChild(resultElement);
+        }
+
+    
+
+
+searchForAlphabeticalIndex("Way of kings") 
+searchForAlphabeticalIndex("Lord of the Rings") 
+searchForAlphabeticalIndex("Harry Potter") 
+searchForAlphabeticalIndex("Differential Equations") 
+searchForAlphabeticalIndex("!") 
+
+    </script>
+</body>
+</html>
